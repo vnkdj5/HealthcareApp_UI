@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <!--edit / add form-->
+      <form       
+      #f="ngForm"
+            (submit)="save(f)"
+            
+            class="card-body">
+        <div class="form-group">
+          <label for="patient_main_type">Patient Main Type</label>
+        <input type="text"
+               [ngModel]="active?.patient_main_type"
+               name="patient_main_type"
+               required
+               class="form-control"
+               
+               #patient_main_typeInput>
+        </div>
+        
+  <div class="form-group">
+          <label>Patient Type</label>
+        <input type="text"
+               [ngModel]="active?.patient_type"
+               name="patient_type"
+               required
+               class="form-control m-1"
+               
+               #patient_typeInput>
+  </div>
+  <div class="form-group">
+          <label for="bill_service_code">Bill Service Code</label>
+         <input type="text"
+               [ngModel]="active?.bill_service_code"
+               name="bill_service_code"
+               required
+               class="form-control m-1"
+              
+               #bill_service_codeInput>
+  </div>
+  
+        
+ 
+        <div class="btn-group  text-center">
+          <button class="btn btn-info btn-block"
+                  type="submit"
+                  [disabled]="f.invalid">
+            {{active?.id ? 'SAVE' : 'ADD'}}
+          </button>
+  
+          <button
+              class="btn btn-light"
+              type="button"
+              *ngIf="active?.id"
+              (click)="reset()">
+            ADD NEW
+          </button>
+        </div>
+
+      </form>
+    </div>
+      
+    <!--Devices List --><table datatable class="table row-border hover" [mfData]="PatientCats" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+    <tr>
+        <th style="width: 20%">
+            <mfDefaultSorter by="patient_main_type">Patient Main Type</mfDefaultSorter>
+        </th>
+        <th style="width: 50%">
+            <mfDefaultSorter by="patient_type">Patient Type</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+            <mfDefaultSorter by="bill_service_code">Bill Service Code</mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+           Delete
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of PatientCats" (click)="setActiveHandler(item)" [ngClass]="{'bg-warning text-dark': item.id === active?.id}">
+        <td>{{item.patient_main_type}}</td>
+        <td>{{item.patient_type}}</td>
+        <td class="text-right">{{item.bill_service_code}}</td>
+        <td>{{ "X" | uppercase}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+  </div>
+</div>
+

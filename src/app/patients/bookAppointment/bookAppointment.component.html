@@ -1,0 +1,89 @@
+<div>
+  <h2>Book Appintment</h2>
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="patientId"> Patient Id</label>
+      <input
+        readonly
+        type="text"
+        class="form-control"
+        formControlName="patientId"
+        [ngClass]="{ 'is-invalid': submitted && f.patientId.errors }"
+      />
+      <div *ngIf="submitted && !!f.patientId.errors" class="invalid-feedback">
+        <div *ngIf="!!f.patientId.errors.required">PATIENT ID is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="visitDate">Visit Date</label>
+      <input
+        type="date"
+        class="form-control"
+        formControlName="visitDate"
+        [ngClass]="{ 'is-invalid': submitted && f.visitDate.errors }"
+      />
+      <div *ngIf="submitted && !!f.visitDate.errors" class="invalid-feedback">
+        <div *ngIf="!!f.visitDate.errors.required">
+          Visit date is required for appointment.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="timeslot">Time Slot</label>
+      <input
+        type="time"
+        class="form-control"
+        formControlName="timeslot"
+        [ngClass]="{ 'is-invalid': submitted && f.timeslot.errors }"
+      />
+      <div *ngIf="submitted && !!f.timeslot.errors" class="invalid-feedback">
+        <div *ngIf="!!f.timeslot.errors.required">Timeslot is required.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="subject"
+        [ngClass]="{ 'is-invalid': submitted && f.subject.errors }"
+        required
+      />
+      <div *ngIf="submitted && !!f.subject.errors" class="invalid-feedback">
+        <div *ngIf="!!f.subject.errors.required">Subject is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description(optional)</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="description"
+        [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+      />
+    </div>
+    <div class="form-group">
+      <label for="doctorId">Doctor</label>
+      <select
+        class="form-control"
+        formControlName="doctorId"
+        [ngClass]="{ 'is-invalid': submitted && f.doctorId.errors }"
+      >
+      <option *ngFor="let doc of doctors;let i=index" [value]="doctors[i].id">
+        {{doctors[i].name}}
+      </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary">
+        Book appointment
+      </button>
+      <img
+        *ngIf="loading"
+        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+      />
+    </div>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  </form>
+</div>
