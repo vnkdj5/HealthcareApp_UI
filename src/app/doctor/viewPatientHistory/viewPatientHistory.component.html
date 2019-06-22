@@ -1,0 +1,67 @@
+<h2>View Patient History</h2>
+<form [formGroup]="getDetailsForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="patientId">Patient Id</label>
+    <input
+      type="text"
+      formControlName="patientId"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.patientId.errors }"
+    />
+  </div>
+  <div class="form-group text-center">
+    <button [disabled]="loading" class="btn btn-primary">Get Details</button>
+    <img
+      *ngIf="loading"
+      src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+    />
+  </div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  </form>
+<table class="table table-hover">
+  <tbody>
+  <tr>
+    <th>Name</th>
+    <td>{{ patientDetails.firstName }} {{ patientDetails.lastName }}</td>
+  </tr>
+  <tr>
+    <th>Date of Birth</th>
+    <td>{{ patientDetails.dateOfBirth }}</td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td>{{ patientDetails.email }}</td>
+  </tr>
+  <tr>
+    <th>Address</th>
+    <td>{{ patientDetails.address }}</td>
+  </tr>
+</tbody>
+</table>
+
+<br>
+<h2 class="text-center">All Appointment History</h2>
+<br><br>
+<table class="table table-hover">
+  <thead>
+  <tr>
+      <th>App.Id</th>
+      <th>Subject</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Description</th>
+      <th>Doctor </th>
+  </tr>
+  </thead>
+
+  <tbody>
+      <tr *ngFor="let obj of aList">
+          <td>{{ obj.appointmentId }}</td>
+          <td>{{ obj.subject }}</td>
+          <td>{{ obj.visitDate }}</td>
+          <td>{{ obj.timeslot }}</td>
+          <td>{{ obj.description }}</td>
+          <td><a [routerLink]="['/viewDoctor/']" >{{obj.doctorId}} </a></td>
+      </tr>
+  </tbody>
+</table>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <!-- Brand -->
-  <a class="navbar-brand" [routerLink]="['/']">HMS</a>
+  <a class="navbar-brand" [routerLink]="['/']">Healthcare System</a>
 
   <!-- Toggler/collapsibe Button -->
   <button
@@ -13,30 +13,79 @@
   </button>
 
   <!-- Navbar links -->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav" [hidden]="userType">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/login']">Login</a>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar" [ngSwitch]='getUserType()'>
+ 
+      <ul class="navbar-nav  mr-auto" *ngSwitchCase="''">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']">Login</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/register']">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/doctor/login']"> Doctor Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/admin/login']"> Admin Login</a>
+              </li>
+              
+      </ul>
+    <ul class="navbar-nav  mr-auto" *ngSwitchCase="'patient'">
+         <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/patient/viewInfo']"  [queryParams]="{id:user.id}">Profile</a>
       </li>
-
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/addAppointment']">Book appointment</a>
+        <a class="nav-link" [routerLink]="['/addAppointment']" [queryParams]="{id:user.id}">Book appointment</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/login']">Delete Appointment</a>
+        <a class="nav-link" [routerLink]="['/deleteAppointment']" [queryParams]="{id:user.id}">Delete Appointment</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/viewAppointments']">View Appointments</a>
+        <a class="nav-link" [routerLink]="['/viewAppointments']" [queryParams]="{id:user.id}">View Appointments</a>
       </li>
-
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/register']">Register</a>
-      </li>
-
-      <li class="nav-item" *ngIf="isloggedIn">
         <!--Add functionality for handling this case -->
-        <a class="nav-link" [routerLink]="['/home']">Logout</a>
+        <a class="nav-link" [routerLink]="['/login']">Logout</a>
       </li>
     </ul>
+
+    <!--  DOCTOR NAVIGATION BAR START-->
+    <ul class="navbar-nav  mr-auto" *ngSwitchCase="'doctor'">
+        <li class="nav-item">
+         <a class="nav-link" [routerLink]="['/doctor/viewInfo']" [queryParams]="{id:user.id}" >Profile</a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" [routerLink]="['/doctor/viewAppointments']" [queryParams]="{id:user.id}">View Appointments</a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" [routerLink]="['/doctor/viewPatient']" [queryParams]="{id:user.id}">View Patient Info</a>
+     </li>
+     <li class="nav-item">
+       <!--Add functionality for handling this case -->
+       <a class="nav-link" [routerLink]="['/login']">Logout</a>
+     </li>
+   </ul>
+   <!-- DOCTOR NAVBAR ENDS-->
+<!--  ADMIN NAVIGATION BAR START-->
+<ul class="navbar-nav  mr-auto" *ngSwitchCase="'admin'">
+    <li class="nav-item">
+     <a class="nav-link" [routerLink]="['/admin/addDoctor']">Add Doctor</a>
+ </li>
+ <li class="nav-item">
+   <a class="nav-link" [routerLink]="['/admin/viewDoctors']">View Doctors</a>
+ </li>
+ <li class="nav-item">
+   <a class="nav-link" [routerLink]="['/admin/viewPatients']">View Patients</a>
+ </li>
+ <li class="nav-item">
+   <!--Add functionality for handling this case -->
+   <a class="nav-link" [routerLink]="['/login']">Logout</a>
+ </li>
+</ul>
+<!-- ADMIN NAVBAR ENDS-->
+
+    <span class="navbar-text" *ngIf='userType'>
+      Welcome <span class="text-success">{{user.firstName}}({{userType}})</span>
+    </span>
   </div>
 </nav>

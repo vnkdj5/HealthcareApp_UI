@@ -33,7 +33,7 @@ export class BookAppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.bookForm = this.formBuilder.group({
-      patientId: ["007", [Validators.required]],
+      patientId: ["001", [Validators.required]],
       subject: ["", [Validators.required]],
       visitDate: ["", [Validators.required]],
       timeslot: ["", [Validators.required]],
@@ -57,7 +57,7 @@ export class BookAppointmentComponent implements OnInit {
 
     this.appointmentSevice.bookAppointment(newAppintment).subscribe(
       data =>{
-          alert("Appointment ID:"+data.id+"has been scheduled successfully");
+          alert("Appointment ID:"+data.appointmentId+"has been scheduled successfully");
           this.router.navigate(['bookAppointment']);
       },
       error => {

@@ -1,7 +1,7 @@
 import { Time } from "@angular/common";
 
 export class Appointment {
-    id:number;
+    appointmentId:number;
     patientId:number;
     subject:string;
     visitDate:Date;

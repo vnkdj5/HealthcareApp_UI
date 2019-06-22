@@ -9,13 +9,10 @@ import { UserService } from '../_services';
   templateUrl: 'home.component.html' 
 })
 export class HomeComponent implements OnInit {
-  users: User[] = [];
 
   constructor(private userService: UserService) { }
-
+  userType:string;
   ngOnInit() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
-    });
+    this.userType=localStorage.getItem("userType");
   }
 }

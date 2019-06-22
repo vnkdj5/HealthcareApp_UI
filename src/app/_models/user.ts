@@ -4,4 +4,10 @@ export class User {
   password: string;
   firstName: string;
   lastName: string;
+  dateOfBirth:Date;
+  address:string;
+
+  public constructor(init?: Partial<User >) {
+    Object.assign(this, init);
+}
 }

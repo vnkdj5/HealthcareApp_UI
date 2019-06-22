@@ -1,0 +1,26 @@
+<br>
+<h2 class="text-center">Appointment List</h2>
+<br><br>
+<table class="table table-hover">
+  <thead>
+  <tr>
+      <th>App.Id</th>
+      <th>Subject</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Description</th>
+      <th>Patient </th>
+  </tr>
+  </thead>
+
+  <tbody>
+      <tr *ngFor="let obj of aList">
+          <td>{{ obj.appointmentId }}</td>
+          <td>{{ obj.subject }}</td>
+          <td>{{ obj.visitDate }}</td>
+          <td>{{ obj.timeslot }}</td>
+          <td>{{ obj.description }}</td>
+          <td><a [routerLink]="['/doctor/viewPatient/']" [queryParams]="{id:obj.patientId}" >{{obj.patientId}} </a></td>
+      </tr>
+  </tbody>
+</table>

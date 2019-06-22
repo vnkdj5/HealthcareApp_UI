@@ -1,10 +1,9 @@
-import { User } from './../../_models/user';
-import { ActivatedRoute, Router } from '@angular/router';
+import { User } from "./../../_models/user";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { AppointmentServiceService } from 'src/app/_services/appointmentService.service';
-import { Appointment } from 'src/app/_models/Appointment';
-import { loadavg } from 'os';
+import { AppointmentServiceService } from "src/app/_services/appointmentService.service";
+import { Appointment } from "src/app/_models/Appointment";
 
 @Component({
   selector: "app-delete-appointment",
@@ -18,25 +17,25 @@ export class DeleteAppointmentComponent implements OnInit {
   error = "";
   success: boolean = false;
   message = "";
-  userType:string;
-  user:User;
+  userType: string;
+  user: User;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private   appointmentSevice:AppointmentServiceService
+    private appointmentSevice: AppointmentServiceService
   ) {}
 
   ngOnInit() {
-    this.deleteAppForm=this.formBuilder.group({
-      patientId: ["007", [Validators.required]],
-      doctorId: ["", [Validators.required]]
+    this.deleteAppForm = this.formBuilder.group({
+      patientId: ["", [Validators.required]],
+      appointmentId: ["", [Validators.required]]
     });
-    this.userType=localStorage.getItem("userType");
-   this.user=JSON.parse(localStorage.getItem("currentuser"));
+    this.userType = localStorage.getItem("userType");
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
+    this.deleteAppForm.setValue({patientId:this.user.id,
+    appointmentId:""});
   }
-
-
 
   get f() {
     return this.deleteAppForm.controls;
@@ -47,25 +46,25 @@ export class DeleteAppointmentComponent implements OnInit {
 
     if (this.deleteAppForm.invalid) return;
 
-    this.loading=true;
+    this.loading = true;
     let newAppintment = new Appointment(this.deleteAppForm.value);
     console.log("Appointment data:", newAppintment);
-
-    this.appointmentSevice.deleteAppointment(newAppintment.id, this.user.id).subscribe(
-      data =>{
-          this.success=true;
-          this.message="Appointment ID:"+data.id+"has been deleted successfully";
-          this.loading=false;
-          alert("Appointment ID:"+data.id+"has been deleted successfully");
-          this.router.navigate(['viewAppointment']);
-          
-      },
-      error => {
-        this.loading=false;
-        this.error=error;
-      }
-    );
-
+    console.log("current user info", this.user);
+    this.appointmentSevice
+      .deleteAppointment(newAppintment.appointmentId, this.user.id)
+      .subscribe(
+        data => {
+          this.success = true;
+          this.message =
+            "Appointment ID:" + data.id + "has been deleted successfully";
+          this.loading = false;
+          alert("Appointment ID:" + data.id + "has been deleted successfully");
+          this.router.navigate(["viewAppointment"]);
+        },
+        error => {
+          this.loading = false;
+          this.error = error;
+        }
+      );
   }
-}
 }

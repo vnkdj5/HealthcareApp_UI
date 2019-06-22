@@ -1,0 +1,26 @@
+<br>
+<h2 class="text-center">All Doctors List</h2>
+<br><br>
+<table class="table table-hover">
+  <thead>
+  <tr>
+      <th>Doctor Id</th>
+      <th>Name</th>
+      <th>Specialization</th>
+      <th>Degree</th>
+      <th>emailId</th>
+      <th>Action </th>
+  </tr>
+  </thead>
+
+  <tbody>
+      <tr *ngFor="let obj of aList;let i=index">
+          <td>{{ obj.id }}</td>
+          <td>{{ obj.firstName }} {{ " "}} {{obj.lastName}}</td>
+          <td>{{ obj.specialization }}</td>
+          <td>{{ obj.degree }}</td>
+          <td>{{ obj.emailId }}</td>
+          <td><a (click)=deleteDoc(obj.id) class="text-error" style="color:red"> Delete </a></td>
+      </tr>
+  </tbody>
+</table>

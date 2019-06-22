@@ -20,7 +20,7 @@ constructor(private http:HttpClient) {
 
   //Delete appintment with associated appoitment Id
   deleteAppointment(appointmentId:number,patientId:number){
-    return this.http.delete<any>(this.BASE_URL+"/appointment/"+appointmentId);
+    return this.http.delete<any>(this.BASE_URL+"/appointment/"+patientId+"/"+appointmentId);
   }
    
 
@@ -33,10 +33,12 @@ constructor(private http:HttpClient) {
   getAppointmentDetails(id:number){
     return this.http.get(this.BASE_URL+"/appointment/"+id);
   }
-
+  getDoctorsAppointment(doctorId:number){
+    return this.http.get<any>(this.BASE_URL+"/appointment/d?doctorId="+doctorId);
+  }
   //get appoints of specific patient
   getPatientAppointments(patientId:number){
-    return this.http.get<any>(this.BASE_URL+"/appointment?patientId="+patientId);
+    return this.http.get<any>(this.BASE_URL+"/appointment/p?patientId="+patientId);
 
   }
 }

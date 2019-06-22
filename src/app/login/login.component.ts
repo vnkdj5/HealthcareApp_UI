@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log("Login  started");
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -53,9 +52,9 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log("data received: ", data);
+          //console.log("data received: ", data);
           this.router.navigate([this.returnUrl]);
-          console.log(this.returnUrl);
+          //console.log(";pcalstorage",localStorage.getItem("currentUser"));
         },
         error => {
           this.error = error;
